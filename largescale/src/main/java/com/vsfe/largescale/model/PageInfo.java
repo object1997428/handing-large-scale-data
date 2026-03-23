@@ -19,20 +19,20 @@ public record PageInfo<T>(
 	List<T> data,
 	boolean hasNext
 ) {
-	public static <T> PageInfo<T> of(
+	public static <T> PageInfo<T> of(//T받아서 T반환
 		List<T> data,
 		int expectedSize,
 		Function<T, Object> firstPageTokenFunction,
 		Function<T, Object> secondPageTokenFunction
 	) {
-		if (data.size() <= expectedSize) {
+		if (data.size() <= expectedSize) {//data.size()=expectedSize+1을 유지. 남은게 expectedSize밖에 안남았으면, 다음에 보낼게 1개도 안남았다는 뜻이니까.
 			return new PageInfo<>(null, data, false);
 		}
 
 		var lastValue = data.get(expectedSize - 1);
 		var pageToken = C4PageTokenUtil.encodePageToken(Pair.of(
-			firstPageTokenFunction.apply(lastValue),
-			secondPageTokenFunction.apply(lastValue)
+			firstPageTokenFunction.apply(lastValue),//transaction:creatd_date
+			secondPageTokenFunction.apply(lastValue)//transaction:id?
 		));
 
 		return new PageInfo<>(pageToken, data.subList(0, expectedSize), true);

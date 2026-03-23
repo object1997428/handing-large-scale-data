@@ -18,7 +18,7 @@ public class C4PageTokenUtil {
 	public static <T, R> String encodePageToken(Pair<T, R> data) {
 		return Base64.encodeBase64URLSafeString(
 			C4StringUtil.format(PAGE_TOKEN_FORMAT, valueToString(data.getLeft()), valueToString(data.getRight()))
-				.getBytes(StandardCharsets.UTF_8)
+				.getBytes(StandardCharsets.UTF_8) //왜 byte, encoding??
 		);
 	}
 

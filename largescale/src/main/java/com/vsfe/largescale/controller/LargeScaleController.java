@@ -38,13 +38,14 @@ public class LargeScaleController {
         return largeScaleService.getUserInfo(count);
     }
 
+
     /**
      * Step 2. 페이징을 활용한 쿼리 최적화 방식에 대해 고민해 봅시다.
      */
     @GetMapping("/get-transactions")
     public PageInfo<Transaction> getTransactions(
-        @RequestParam @NotEmpty String accountNumber,
-        @RequestParam(required = false) String pageToken,
+        @RequestParam @NotEmpty String accountNumber, //empty가 되면 안된다= 필수
+        @RequestParam(required = false) String pageToken, //생략될 수 있음
         @RequestParam @NotNull TransactionSearchOption option,
         @RequestParam @Positive @Max(100) int count
     ) {
