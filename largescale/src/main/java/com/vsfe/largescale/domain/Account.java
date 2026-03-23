@@ -1,7 +1,10 @@
 package com.vsfe.largescale.domain;
 
 import java.time.Instant;
+import java.util.stream.IntStream;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
 import jakarta.persistence.Column;
@@ -20,6 +23,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "account")
 public class Account {
+	public static final String ACCOUNT_PREFIX = "3333";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "account_id", nullable = false)
@@ -55,4 +60,21 @@ public class Account {
 	@Column(name = "recent_transaction_date")
 	private Instant recentTransactionDate;
 
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public boolean validateAccountNumber() {
+		return true;
+	}
+
+	/**
+	 * 계좌번호 조각의 검증 로직을 수행한다.
+	 * @param accountNumberPart
+	 * @return
+	 */
+	private int getValidateSum(String accountNumberPart) {
+		return 0;
+	}
 }
